@@ -58,5 +58,7 @@ That's it! You can enjoy siwapp now entering on your heroku app url.
 
 
 Issues:
+
 https://stackoverflow.com/questions/36608732/not-able-to-install-capybara-webkit-using-bundle-install-command-in-rails-4
-sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+
+    sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
