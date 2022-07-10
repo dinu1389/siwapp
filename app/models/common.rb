@@ -27,9 +27,14 @@ class Common < ActiveRecord::Base
   # Validations
   validate :valid_customer_identification
   validates :series, presence: true
+  # from https://emailregex.com/
   validates :email,
-    format: {with: /\A(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})\z/i,
+    format: {with: /\A([\w+\-].?)+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,})\z/i,
              message: "Only valid emails"}, allow_blank: true
+  validates :invoicing_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "wrong format" }
+  validates :shipping_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "wrong format" }
 
   # Events
   after_save :purge_items
