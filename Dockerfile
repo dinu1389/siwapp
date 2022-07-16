@@ -2,6 +2,7 @@ FROM ruby:2.5.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+
 RUN apt-get update -qq
 RUN apt-get install -y \
     curl \
@@ -21,9 +22,10 @@ RUN	apt-get install -y \
 # Copy project src to container
 COPY ./Gemfile /app/
 COPY ./Gemfile.lock /app/
-
+COPY . /app
 # Set /app as workdir
 WORKDIR /app
 
+EXPOSE 3000
 # Install dependencies
-RUN bundle install
+# RUN bundle install

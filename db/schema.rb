@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_19_100550) do
+ActiveRecord::Schema.define(version: 2022_05_20_104221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,11 +59,13 @@ ActiveRecord::Schema.define(version: 2022_05_19_100550) do
     t.index ["deleted_at"], name: "index_commons_on_deleted_at"
     t.index ["email"], name: "cstml_idx"
     t.index ["identification"], name: "cstid_idx"
+    t.index ["issue_date", "id"], name: "index_commons_on_issue_date_and_id", order: :desc
     t.index ["name"], name: "cstnm_idx"
     t.index ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id"
     t.index ["series_id", "deleted_number"], name: "common_deleted_number_idx"
     t.index ["series_id", "number"], name: "common_unique_number_idx", unique: true
     t.index ["series_id"], name: "series_id_idx"
+    t.index ["type", "deleted_at"], name: "index_commons_on_type_and_deleted_at"
     t.index ["type"], name: "common_type_idx"
     t.index ["type"], name: "type_and_status_idx"
   end

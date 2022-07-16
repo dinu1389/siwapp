@@ -2,23 +2,35 @@ services:
   db:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
-    image: postgres:13.6-alpine
+    image: postgres
     ports:
       - 5432:5432
   web:
-    build: .
-    command: bundle exec rails s -b '0.0.0.0'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    command: >
+            bash -c "bundle install &&
+            bundle exec rails db:setup && 
+            bundle exec rails db:migrate && 
+            bundle exec rails server -b 0.0.0.0"
     depends_on:
       - db
-    image: siwapp/siwapp
+    image: paylink
     networks:
       default:
         aliases:
-        - siwapp
+        - paylink
     ports:
       - 3000:3000
     volumes:
       - .:/app
+      - bundle_data:/bundle/vendor:cached
     stdin_open: true
     tty: true
+volumes:
+  bundle_data:
+
 version: '3'
