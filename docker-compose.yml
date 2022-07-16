@@ -9,8 +9,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+    environment:
+      - PORT=3004
+      - RAILS_ENV=development
     command: >
             bash -c "bundle install &&
             bundle exec rails db:setup && 
