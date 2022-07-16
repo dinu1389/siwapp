@@ -26,6 +26,6 @@ COPY . /app
 # Set /app as workdir
 WORKDIR /app
 
-EXPOSE 3000
+#EXPOSE 3000
 # Install dependencies
 # RUN bundle install
