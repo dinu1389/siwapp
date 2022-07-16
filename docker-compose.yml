@@ -9,11 +9,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # env_file:
-    #   - .env
-    environment:
-      - PORT=3004
-      - RAILS_ENV=development
+    env_file:
+      - .env
+    # environment:
+    #   - PORT=3004
+    #   - RAILS_ENV=development
     command: >
             bash -c "bundle install &&
             bundle exec rails db:setup && 
@@ -27,7 +27,7 @@ services:
         aliases:
         - paylink
     ports:
-      - 3000:3000
+      - 3004:3000
     volumes:
       - .:/app
       - bundle_data:/bundle/vendor:cached
