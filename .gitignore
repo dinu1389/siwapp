@@ -21,3 +21,5 @@
 Gemfile.lock
 *.swp
 .ackrc
+
+.env
