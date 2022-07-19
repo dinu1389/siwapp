@@ -5,6 +5,9 @@ bundle exec rake siwapp:user:create['demo','demo@example.com','password']
 user: {:name=>"demo", :email=>"demo@example.com", :password=>"password"}
 
 
+docker run -v paylink_bundle_data:/volume -v /Users/manushamajji/Documents/Workspace/paylink:/backup --rm loomchild/volume-backup backup  paylink_bundle_data.tar.bz2
+
+docker run -v paylink_bundle_data:/volume -v /usr/src:/backup --rm loomchild/volume-backup restore  paylink_bundle_data.tar.bz2
 # Siwapp
 
 [![Build Status](https://travis-ci.org/siwapp/siwapp.svg?branch=master)](https://travis-ci.org/siwapp/siwapp)
