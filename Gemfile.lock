@@ -1,11 +1,10 @@
 GIT
-  remote: https://github.com/thoughtbot/capybara-webkit.git
-  revision: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
-  branch: master
+  remote: git@github.com:jejacks0n/mercury.git
+  revision: a6a7e8d3b924266aa39be73359aa5c73c81363e1
   specs:
-    capybara-webkit (1.15.1)
-      capybara (>= 2.3, < 4.0)
-      json
+    mercury-rails (0.9.0)
+      coffee-rails (>= 3.2.2)
+      railties (>= 3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -73,14 +72,6 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.3)
     byebug (11.0.1)
-    capybara (3.29.0)
-      addressable
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
-      xpath (~> 3.2)
     case_transform (0.2)
       activesupport
     celluloid (0.17.4)
@@ -100,7 +91,6 @@ GEM
       timers (>= 4.1.1)
     celluloid-supervision (0.20.6)
       timers (>= 4.1.1)
-    childprocess (3.0.0)
     cocoon (1.2.14)
     coderay (1.1.2)
     coffee-rails (5.0.0)
@@ -112,7 +102,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
-    database_cleaner (1.7.0)
     diff-lcs (1.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -162,7 +151,6 @@ GEM
     js-routes (1.4.9)
       railties (>= 4)
       sprockets-rails
-    json (2.3.1)
     jsonapi-renderer (0.2.2)
     listen (3.2.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -251,7 +239,6 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rdoc (6.3.2)
-    regexp_parser (1.6.0)
     request_store (1.4.1)
       rack (>= 1.4)
     route_translator (7.0.1)
@@ -274,7 +261,6 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
-    rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -292,9 +278,6 @@ GEM
       tilt
     sdoc (1.0.0)
       rdoc (>= 5.0)
-    selenium-webdriver (3.142.6)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     sentry-rails (5.2.1)
       railties (>= 5.0)
       sentry-ruby-core (~> 5.2.1)
@@ -345,8 +328,6 @@ GEM
       celluloid
       wisper
     wkhtmltopdf-binary (0.12.4)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
 
 PLATFORMS
   ruby
@@ -359,10 +340,8 @@ DEPENDENCIES
   bootsnap
   bootstrap
   byebug
-  capybara-webkit!
   cocoon
   coffee-rails
-  database_cleaner
   dotenv-rails
   factory_bot_rails
   faker
@@ -375,6 +354,7 @@ DEPENDENCIES
   js-routes
   listen
   material_icons
+  mercury-rails!
   money
   paranoia
   pg
@@ -389,7 +369,6 @@ DEPENDENCIES
   sass
   sass-rails
   sdoc
-  selenium-webdriver
   sentry-rails
   sentry-ruby
   shoulda-matchers

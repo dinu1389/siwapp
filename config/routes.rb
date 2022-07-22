@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Mercury::Engine => '/'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'dashboard#index'
 
@@ -54,7 +55,8 @@ Rails.application.routes.draw do
   put 'settings/hooks', to: 'settings#hooks_update'
   get 'settings/api_token'
   post 'settings/api_token'
-
+  get 'about', to: 'templates#about'
+  put 'about', to: 'templates#update_template'
 
   # API
   namespace :api do

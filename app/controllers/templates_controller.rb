@@ -22,6 +22,24 @@ class TemplatesController < ApplicationController
   def edit
   end
 
+  def about
+    # ApplicationController.new.render_to_string
+    # html_safe
+    # https://stackoverflow.com/questions/41306355/how-to-replace-the-characters-in-a-string
+    # html = render_to_string :inline => temp, :locals => {:item => @item}
+    @template = Template.find_by(name: 'test')
+    val = @template&.template
+    replacements = { '{{' => '<%=', '}}' => '%>' }
+    val2 = val.gsub(Regexp.union(replacements.keys), replacements) if val.present?
+    html = ApplicationController.new.render_to_string :inline => val2, :locals => {:item => @item} if val2.present?
+  end
+
+  def update_template
+    params[:content][:uniqueID][:value]
+    Template.where(name: 'test').destroy_all
+    @template = Template.create(name: 'test', template: params[:content][:uniqueID][:value], content: params[:content])
+  end
+
   # POST /templates
   # POST /templates.json
   def create

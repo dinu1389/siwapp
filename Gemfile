@@ -44,9 +44,9 @@ end
 gem 'web-console', group: :development
 
 group :test do
-  gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git', branch: 'master'
-  gem 'selenium-webdriver'
-  gem 'database_cleaner'
+  # gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git', branch: 'master'
+  # gem 'selenium-webdriver'
+  # gem 'database_cleaner'
 end
 
 gem 'active_model_serializers'
@@ -86,3 +86,5 @@ gem 'http'
 # for translation
 gem 'route_translator'
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'mercury-rails', :git => 'git@github.com:jejacks0n/mercury.git'
