@@ -7,10 +7,10 @@
 default: &default
   adapter: postgresql
   timeout: 5000
-  host: <%= ENV['POSTGRES_HOST'] || ENV['RAILS_DATABASE_HOST'] || 'db' %>
+  host: <%= ENV['POSTGRES_HOST'] || ENV['RAILS_DATABASE_HOST'] || 'localhost' %>
   port: <%= ENV['POSTGRES_PORT'] || ENV['RAILS_DATABASE_PORT'] || 5432 %>
   username: <%= ENV['POSTGRES_USERNAME'] || ENV['RAILS_DATABASE_USERNAME'] || 'postgres' %>
-  password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || ''%>
+  password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || 'postgres'%>
   pool: <%= (ENV['DB_CONNECTION_POOL_SIZE'] || "5").to_i %>
   encoding: unicode
 

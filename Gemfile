@@ -43,11 +43,11 @@ end
 # Access an IRB console on exception pages or by using <%= console %> in views
 gem 'web-console', group: :development
 
-group :test do
-  gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git', branch: 'master'
-  gem 'selenium-webdriver'
-  gem 'database_cleaner'
-end
+# group :test do
+#   gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git', branch: 'master'
+#   gem 'selenium-webdriver'
+#   gem 'database_cleaner'
+# end
 
 gem 'active_model_serializers'
 gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
