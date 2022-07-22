@@ -294,6 +294,8 @@ GEM
     tilt (2.0.10)
     timecop (0.9.1)
     timers (4.3.0)
+    tinymce-rails (6.1.0)
+      railties (>= 3.1.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
@@ -365,6 +367,7 @@ DEPENDENCIES
   shoulda-matchers
   spring
   timecop
+  tinymce-rails
   uglifier
   valid_url
   web-console

@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get 'settings/api_token'
   post 'settings/api_token'
 
+  get 'about', to: 'templates#about'
 
   # API
   namespace :api do

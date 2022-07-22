@@ -22,6 +22,9 @@ class TemplatesController < ApplicationController
   def edit
   end
 
+  def about
+  end
+
   # POST /templates
   # POST /templates.json
   def create
