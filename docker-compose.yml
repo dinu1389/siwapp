@@ -1,24 +1,38 @@
 services:
   db:
+    image: postgres
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    image: postgres:13.6-alpine
-    ports:
-      - 5432:5432
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - db_data:/var/lib/postgresql/data
   web:
     build: .
-    command: bundle exec rails s -b '0.0.0.0'
-    depends_on:
-      - db
-    image: siwapp/siwapp
-    networks:
-      default:
-        aliases:
-        - siwapp
     ports:
       - 3000:3000
     volumes:
       - .:/app
-    stdin_open: true
-    tty: true
+      - bundle_data:/bundle/vendor:cached
+    links:
+      - 'db:db'
+      - 'redis:redis'
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    command: >
+            bash -c "bundle install &&
+            bundle exec rails db:create &&
+            bundle exec rails db:migrate &&
+            bundle exec rails server -b 0.0.0.0"
+  redis:
+    image: redis:6-alpine
+    command: redis-server
+    volumes:
+      - 'redis_data:/data'
+volumes:
+  db_data:
+  redis_data:
+  bundle_data:
+
 version: '3'

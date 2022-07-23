@@ -1,4 +1,4 @@
-FROM ruby:2.5.7-slim
+FROM ruby:2.5.7
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -26,4 +26,4 @@ COPY ./Gemfile.lock /app/
 WORKDIR /app
 
 # Install dependencies
-RUN bundle install
+# RUN bundle install

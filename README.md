@@ -7,6 +7,7 @@ Online Invoice Management. See [online demo](https://siwapp-demo.herokuapp.com) 
 [API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md)
 
 
+
 ## SMTP Configuration
 
 In order to be able to send emails through the app, you must configure the following environment variables in your system:
@@ -62,3 +63,6 @@ Issues:
 https://stackoverflow.com/questions/36608732/not-able-to-install-capybara-webkit-using-bundle-install-command-in-rails-4
 
     sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+
+
+https://stackoverflow.com/questions/17150064/how-to-check-if-the-database-exists-or-not-in-rails-before-doing-a-rake-dbsetup
