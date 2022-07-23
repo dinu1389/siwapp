@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'dashboard#index'
+  root 'templates#index'
 
   get    'login'   => 'sessions#new',      as: :login
   post   'login'   => 'sessions#create'
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get  'taxes/get_defaults', to: 'taxes#get_defaults'
 
-  resources :taxes, :templates, :series
+  resources :taxes, :templates, :series, :reports
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"

@@ -108,3 +108,5 @@ en:
   host:                  host
   port:                  port
   domain:                domain
+  ceate template:        Report
+  actions:               Action
