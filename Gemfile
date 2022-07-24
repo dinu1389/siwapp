@@ -87,3 +87,5 @@ gem 'http'
 gem 'route_translator'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'tinymce-rails'
+
+gem 'htmltoword'

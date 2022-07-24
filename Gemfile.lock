@@ -120,6 +120,10 @@ GEM
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
+    htmltoword (1.1.1)
+      actionpack
+      nokogiri
+      rubyzip (>= 1.0)
     http (4.2.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -253,6 +257,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
+    rubyzip (2.3.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -341,6 +346,7 @@ DEPENDENCIES
   faker
   fastclick-rails
   haml
+  htmltoword
   http
   jbuilder
   jquery-rails

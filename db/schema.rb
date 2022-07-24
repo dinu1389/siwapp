@@ -59,13 +59,11 @@ ActiveRecord::Schema.define(version: 2022_07_22_140137) do
     t.index ["deleted_at"], name: "index_commons_on_deleted_at"
     t.index ["email"], name: "cstml_idx"
     t.index ["identification"], name: "cstid_idx"
-    t.index ["issue_date", "id"], name: "index_commons_on_issue_date_and_id", order: :desc
     t.index ["name"], name: "cstnm_idx"
     t.index ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id"
     t.index ["series_id", "deleted_number"], name: "common_deleted_number_idx"
     t.index ["series_id", "number"], name: "common_unique_number_idx", unique: true
     t.index ["series_id"], name: "series_id_idx"
-    t.index ["type", "deleted_at"], name: "index_commons_on_type_and_deleted_at"
     t.index ["type"], name: "common_type_idx"
     t.index ["type"], name: "type_and_status_idx"
   end
@@ -128,8 +126,10 @@ ActiveRecord::Schema.define(version: 2022_07_22_140137) do
 
   create_table "reports", force: :cascade do |t|
     t.string "name"
+    t.integer "template_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["template_id"], name: "index_reports_on_template_id"
   end
 
   create_table "series", force: :cascade do |t|
@@ -189,7 +189,6 @@ ActiveRecord::Schema.define(version: 2022_07_22_140137) do
     t.datetime "deleted_at"
     t.boolean "email_default", default: false
     t.string "subject", limit: 200
-    t.jsonb "content", default: {}, null: false
     t.index ["deleted_at"], name: "index_templates_on_deleted_at"
   end
 

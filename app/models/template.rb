@@ -8,4 +8,9 @@ class Template < ActiveRecord::Base
     name
   end
 
+  def html_string
+    replacements = { '{{' => '<%=', '}}' => '%>' }
+    return  template.gsub(Regexp.union(replacements.keys), replacements) if template.present?
+  end
+
 end

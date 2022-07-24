@@ -66,3 +66,6 @@ https://stackoverflow.com/questions/36608732/not-able-to-install-capybara-webkit
 
 
 https://stackoverflow.com/questions/17150064/how-to-check-if-the-database-exists-or-not-in-rails-before-doing-a-rake-dbsetup
+
+
+https://products.aspose.com/words/family/
