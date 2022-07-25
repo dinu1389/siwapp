@@ -21,3 +21,6 @@
 Gemfile.lock
 *.swp
 .ackrc
+
+/storage/*
+
