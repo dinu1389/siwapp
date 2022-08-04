@@ -1,0 +1,56 @@
+<%= form_for(@report) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@report.errors.count, "error") %>
+        prohibited this template from being saved:
+      </h2>
+      <ul>
+        <% @report.errors.full_messages.each do |message| %>
+          <li>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.file_field :data_files, :multiple => true, class: 'form-control' %>
+        <%= f.hidden_field :template_id, value: @report.template_id %>
+      </div>
+    </div>
+  </div>
+
+
+  <%= f.submit %>
+<% end %>
+</br>
+<div class="row">
+  
+</div>
+<h2><%= t('Uploaded files') %></h2>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+      <% if @report.data_files.attached? %>
+        <% @report.data_files.each do |file| %>
+          <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
+          </br>
+          <% @url = ActiveStorage::Blob.service.send(:path_for, file.key) %>
+          <%  @csv_data = CSV.open(@url, headers: true).read %>
+          <textarea readonly cols="40" id="person_description" name="person[description]" rows="20"><%= @csv_data.headers %></textarea>
+          </br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="col-xs-12 col-md-6">
+<%= form_for :@report, url: report_generatedocx_path, method: :post  do |f| %>
+  <%= f.hidden_field :report_id, value: @report.id %>
+  <%= f.submit 'Generate Outputs' %>
+<% end %>
+</div>

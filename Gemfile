@@ -89,3 +89,5 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'tinymce-rails'
 
 gem 'htmltoword'
+
+gem 'activestorage-validator'

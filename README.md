@@ -69,3 +69,9 @@ https://stackoverflow.com/questions/17150064/how-to-check-if-the-database-exists
 
 
 https://products.aspose.com/words/family/
+
+https://pragmaticstudio.com/tutorials/using-active-storage-in-rails
+
+https://pragmaticstudio.com/tutorials/using-active-storage-in-rails
+
+https://gist.github.com/lorenadl/a1eb26efdf545b4b2b9448086de3961d

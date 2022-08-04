@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   get 'about', to: 'templates#about'
 
+  post 'report/generatedocx', to: 'reports#generatedocx'
   # API
   namespace :api do
     namespace :v1 do

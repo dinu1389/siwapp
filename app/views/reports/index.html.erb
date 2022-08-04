@@ -1,1 +1,34 @@
-hello
+<h1>
+  <%= t("templates") %>
+</h1>
+<%= form_tag url_for({:controller => "templates", :action => "set_default"}), :method => :post, :class => "change_default"  do %>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="table-select text-nowrap">
+            <%= "#{t("default")}#{t("email")}" %>
+          </th>
+          <th>
+            <%= t("name") %>
+          </th>
+          <th class="table-select text-nowrap">
+            <%= t("actions") %>
+          </th>          
+        </tr>
+      </thead>
+      <tbody>
+        <% @reports.each do |report| %>
+          <tr>
+            <td>
+              <%= link_to report.id, edit_template_path(report) %>
+            </td>
+            <td>
+              <%= link_to report.name || t('reports'), edit_report_path(:id => report.id) %>
+            </td>            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
