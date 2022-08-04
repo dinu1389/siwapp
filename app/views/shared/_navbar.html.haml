@@ -34,7 +34,7 @@
       - if @type
         = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary "
       - else
-        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary"
+        = link_to t("new report"), new_invoice_path, class: "btn btn-primary"
 
   .d-xl-none
     - if current_user

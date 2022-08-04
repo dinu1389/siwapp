@@ -6,12 +6,6 @@
     <table class="table table-hover table-striped table-bordered">
       <thead>
         <tr>
-          <th class="table-select text-nowrap">
-            <%= "#{t("default")}#{t("email")}" %>
-          </th>
-          <th class="table-select text-nowrap">
-            <%= "#{t("default")} PDF"  %>
-          </th>
           <th>
             <%= t("name") %>
           </th>
@@ -23,12 +17,6 @@
       <tbody>
         <% @templates.each do |template| %>
           <tr>
-            <td class="table-select">
-              <%= radio_button_tag 'email_default_template', template.id, checked=template.email_default, {"data-role": "select-default"} %>
-            </td>
-            <td class="table-select">
-              <%= radio_button_tag 'print_default_template', template.id, checked=template.print_default, {"data-role": "select-default"} %>
-            </td>
             <td>
               <%= link_to template.name, edit_template_path(template) %>
             </td>
