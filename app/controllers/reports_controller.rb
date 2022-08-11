@@ -57,6 +57,8 @@ class ReportsController < ApplicationController
   def generatedocx
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template
+    target_path = "#{Rails.root}/tmp/#{@report.id}"
+    FileUtils.rm_rf(target_path) if File.exist?(target_path)
     if @report.data_files.attached?
       @report.data_files.each do |file|
         url = ActiveStorage::Blob.service.send(:path_for, file.key)
@@ -70,14 +72,26 @@ class ReportsController < ApplicationController
           locals_hash["@#{name}"] = row_hash
           locals_hash =  HashWithIndifferentAccess.new(locals_hash)
           html = render_to_string :inline =>  template.html_string, :locals => locals_hash
-          final_file = "#{row_hash[:USUBJID]}.docx"
-          docx_file = Htmltoword::Document.create_and_save html, final_file
-
-          @report.result_files.attach(io: File.open("#{Rails.root}/#{final_file}"), filename: final_file)
+          final_file = "#{@report.id}-#{row_hash[:USUBJID]}.docx"
+          
+          
           File.delete(final_file) if File.exist?(final_file)
+          
+
+          docx_file = Htmltoword::Document.create_and_save html, final_file
+          FileUtils.mkdir_p "#{target_path}"
+          if File.exists?(target_path)
+            FileUtils.mv(docx_file, target_path)
+          end
 
         end
       end
+      zip_output_path = "#{target_path}/#{@report.id}.zip"
+      zf = ZipFileGenerator.new(target_path, zip_output_path)
+      zf.write()
+      @report.output_file.attach(io: File.open(zip_output_path), filename: "#{@report.id}.zip")
+      # File.delete(final_file) if File.exist?(final_file)
+      FileUtils.rm_rf(target_path) if File.exist?(target_path)
     end
     redirect_to edit_report_path(@report)
   end

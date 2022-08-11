@@ -56,10 +56,10 @@
 </div>
 <br>
 <div class="col-xs-12 col-md-6">
-<% if @report.result_files.attached? %>
-  <% @report.result_files.each do |file| %>
-    <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
-    </br>
-  <% end %>
+<% if @report.output_file.attached? %>
+  
+  <%= link_to  @report.output_file.filename, rails_blob_path( @report.output_file, disposition: "attachment") %>
+  </br>
+
 <% end %>
 </div>
