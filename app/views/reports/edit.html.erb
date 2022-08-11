@@ -51,6 +51,15 @@
 <div class="col-xs-12 col-md-6">
 <%= form_for :@report, url: report_generatedocx_path, method: :post  do |f| %>
   <%= f.hidden_field :report_id, value: @report.id %>
-  <%= f.submit 'Generate Outputs' %>
+  <%= f.submit 'Generate' %>
+<% end %>
+</div>
+<br>
+<div class="col-xs-12 col-md-6">
+<% if @report.result_files.attached? %>
+  <% @report.result_files.each do |file| %>
+    <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
+    </br>
+  <% end %>
 <% end %>
 </div>

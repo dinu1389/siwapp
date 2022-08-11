@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
     @reports = Report.all.order(updated_at: :desc)
   end
 
-  def generatedocx
+  def generatedocx_backup
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template
     file = @report.data_files.first
@@ -48,6 +48,38 @@ class ReportsController < ApplicationController
     html = render_to_string :inline =>  template.html_string, :locals => locals_hash
    #html = render_to_string :inline =>  template.html_string, :locals => {:@ae => row_hash}
     file = Htmltoword::Document.create_and_save html, 'result.docx'
+    # zip_file(file)
+    @report.result_file.attach(io: File.open("#{Rails.root}/result.docx"), filename: 'result.docx')
+
+    redirect_to edit_report_path(@report)
+  end
+
+  def generatedocx
+    @report = Report.find_by(id: params[:@report][:report_id])
+    template = @report.template
+    if @report.data_files.attached?
+      @report.data_files.each do |file|
+        url = ActiveStorage::Blob.service.send(:path_for, file.key)
+        @csv_data = CSV.open(url, headers: true).read
+        @csv_data.each do |row|
+          row_hash = row.to_hash
+          row_hash =  HashWithIndifferentAccess.new(row_hash)
+          name = File.basename(file.filename.to_s, File.extname(file.filename.to_s)).downcase
+          instance_variable_set("@#{name}", row_hash)
+          locals_hash = {}
+          locals_hash["@#{name}"] = row_hash
+          locals_hash =  HashWithIndifferentAccess.new(locals_hash)
+          html = render_to_string :inline =>  template.html_string, :locals => locals_hash
+          final_file = "#{row_hash[:USUBJID]}.docx"
+          docx_file = Htmltoword::Document.create_and_save html, final_file
+
+          @report.result_files.attach(io: File.open("#{Rails.root}/#{final_file}"), filename: final_file)
+          File.delete(final_file) if File.exist?(final_file)
+
+        end
+      end
+    end
+    redirect_to edit_report_path(@report)
   end
 
   private
@@ -70,5 +102,22 @@ class ReportsController < ApplicationController
         # @csv_data = CSV.open(url, headers: true).read
       end
     end
+  end
+
+  def zip_file file
+    # Zip::OutputStream.write_buffer do |stream|
+    #   # add pdf to zip
+    #   stream.write IO.read(file) 
+    # end
+    # zfpath = Rails.root.join('tmp', "somename-#{SecureRandom.hex(8)}.zip")
+    # Zip::ZipFile.open(zfpath, Zip::ZipFile::CREATE) do |zipfile|
+     
+    #   zipfile.add(file)
+    # end
+    # Zip::File.open("my.zip", create: true) {
+    # |zipfile|
+    #   zipfile.get_output_stream(file)
+    #   zipfile.mkdir("a_dir")
+    # }
   end
 end
