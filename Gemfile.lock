@@ -368,6 +368,7 @@ DEPENDENCIES
   ransack
   route_translator
   rspec-rails
+  rubyzip
   sass
   sass-rails
   sdoc

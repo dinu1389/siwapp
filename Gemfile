@@ -91,3 +91,4 @@ gem 'tinymce-rails'
 gem 'htmltoword'
 
 gem 'activestorage-validator'
+gem 'rubyzip'
