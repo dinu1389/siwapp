@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
     redirect_to edit_report_path(@report)
   end
 
-  def generatedocx
+  def generatedocx_2
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template
     target_path = "#{Rails.root}/tmp/#{@report.id}"
@@ -96,6 +96,49 @@ class ReportsController < ApplicationController
     redirect_to edit_report_path(@report)
   end
 
+  def generatedocx
+    @report = Report.find_by(id: params[:@report][:report_id])
+    template = @report.template
+    target_path = "#{Rails.root}/tmp/#{@report.id}"
+    FileUtils.rm_rf(target_path) if File.exist?(target_path)
+    if @report.data_files.attached?
+      @report.data_files.each do |file|
+        name = File.basename(file.filename.to_s, File.extname(file.filename.to_s)).downcase
+        url = ActiveStorage::Blob.service.send(:path_for, file.key)
+        if name == 'dm'
+          @csv_data = CSV.open(url, headers: true).read
+          @csv_data.each do |row|
+            tmp = VarObject.new(row, row.headers)
+            #instance_variable_set("@#{name}", tmp)
+
+            locals_hash = {}
+            locals_hash["#{name}"] = tmp
+            locals_hash =  HashWithIndifferentAccess.new(locals_hash)
+            # {:dm => tmp}
+            html = render_to_string :inline =>  template.html_string, :locals => locals_hash
+
+            final_file = "#{@report.id}-#{tmp.USUBJID}.docx"
+          
+          
+            File.delete(final_file) if File.exist?(final_file)
+            
+  
+            docx_file = Htmltoword::Document.create_and_save html, final_file
+            FileUtils.mkdir_p "#{target_path}"
+            if File.exists?(target_path)
+              FileUtils.mv(docx_file, target_path)
+            end
+            # MHs.each do |obj|
+            #   obj[MH.SUBID]
+            # end
+          end
+        end
+      end
+    end
+    zip_files(target_path)
+    redirect_to edit_report_path(@report)
+  end
+
   private
 
   def report_params
@@ -118,20 +161,34 @@ class ReportsController < ApplicationController
     end
   end
 
-  def zip_file file
-    # Zip::OutputStream.write_buffer do |stream|
-    #   # add pdf to zip
-    #   stream.write IO.read(file) 
-    # end
-    # zfpath = Rails.root.join('tmp', "somename-#{SecureRandom.hex(8)}.zip")
-    # Zip::ZipFile.open(zfpath, Zip::ZipFile::CREATE) do |zipfile|
-     
-    #   zipfile.add(file)
-    # end
-    # Zip::File.open("my.zip", create: true) {
-    # |zipfile|
-    #   zipfile.get_output_stream(file)
-    #   zipfile.mkdir("a_dir")
-    # }
+  # def locals_hash name, value
+  #   locals_hash = {}
+  #   locals_hash["@#{name}"] = value
+  #   locals_hash =  HashWithIndifferentAccess.new(locals_hash)
+  # end
+
+  def zip_files target_path
+    zip_output_path = "#{target_path}/#{@report.id}.zip"
+    zf = ZipFileGenerator.new(target_path, zip_output_path)
+    zf.write()
+    @report.output_file.attach(io: File.open(zip_output_path), filename: "#{@report.id}.zip")
+    # File.delete(final_file) if File.exist?(final_file)
+    FileUtils.rm_rf(target_path) if File.exist?(target_path)
   end
+  # def zip_file file
+  #   # Zip::OutputStream.write_buffer do |stream|
+  #   #   # add pdf to zip
+  #   #   stream.write IO.read(file) 
+  #   # end
+  #   # zfpath = Rails.root.join('tmp', "somename-#{SecureRandom.hex(8)}.zip")
+  #   # Zip::ZipFile.open(zfpath, Zip::ZipFile::CREATE) do |zipfile|
+     
+  #   #   zipfile.add(file)
+  #   # end
+  #   # Zip::File.open("my.zip", create: true) {
+  #   # |zipfile|
+  #   #   zipfile.get_output_stream(file)
+  #   #   zipfile.mkdir("a_dir")
+  #   # }
+  # end
 end
