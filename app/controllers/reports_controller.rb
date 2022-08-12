@@ -108,16 +108,16 @@ class ReportsController < ApplicationController
         if name == 'dm'
           @csv_data = CSV.open(url, headers: true).read
           @csv_data.each do |row|
-            tmp = VarObject.new(row, row.headers)
+            start_obj = VarObject.new(row, row.headers)
             #instance_variable_set("@#{name}", tmp)
 
             locals_hash = {}
-            locals_hash["#{name}"] = tmp
+            locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}
             html = render_to_string :inline =>  template.html_string, :locals => locals_hash
 
-            final_file = "#{@report.id}-#{tmp.USUBJID}.docx"
+            final_file = "#{@report.id}-#{start_obj.USUBJID}.docx"
           
           
             File.delete(final_file) if File.exist?(final_file)
