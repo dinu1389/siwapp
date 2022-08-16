@@ -22,14 +22,14 @@ class Template < ActiveRecord::Base
       str = self.template[s+2..e-1]
       if str.include? ".loop"
         str = str.split(".loop").first.downcase
-        replacements = { "{{#{str.upcase}.loop}}" => "<% #{str}s.each do |#{str}| %>"}
+        replacements = { "{{#{str}.loop}}" => "<% #{str}s.each do |#{str}| %>"}
         html_to_erb(replacements)
       elsif str.include? ".end"
         str = str.split(".end").first
-        replacements = { "{{#{str.upcase}.end}}" => "<% end %>"}
+        replacements = { "{{#{str}.end}}" => "<% end %>"}
         html_to_erb(replacements)
       else
-        check_for_variables
+        check_for_variables(s, e)
       end
       #if braces are unable to replace below will be true and this recursive function should be stopped if not it will go into infinite loop
       if @force_stop_index == self.template.index("{{")
@@ -43,9 +43,11 @@ class Template < ActiveRecord::Base
     end
   end
 
-  def check_for_variables
-    replacements = { '{{' => '<%=', '}}' => '%>' }
-    html_to_erb(replacements)
+  def check_for_variables first, last
+    template[first..first+1] = '<%='
+    template[last+1..last+2] = '%>'
+    # replacements = { '{{' => '<%=', '}}' => '%>' }
+    # html_to_erb(replacements)
   end
 
   def html_to_erb replacements
