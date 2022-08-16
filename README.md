@@ -75,3 +75,10 @@ https://pragmaticstudio.com/tutorials/using-active-storage-in-rails
 https://pragmaticstudio.com/tutorials/using-active-storage-in-rails
 
 https://gist.github.com/lorenadl/a1eb26efdf545b4b2b9448086de3961d
+
+
+# benchmark
+
+https://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby
+
+https://stackoverflow.com/questions/9599568/how-to-find-a-specific-row-in-csv

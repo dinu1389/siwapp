@@ -17,4 +17,18 @@ class VarObject
 			end			
 		end
 	end
+
+
+	def set_data(file, name)
+		matched_objects = []
+		current_file_name = File.basename(file.filename.to_s, File.extname(file.filename.to_s)).downcase
+		url = ActiveStorage::Blob.service.send(:path_for, file.key)
+		if current_file_name!= name
+			CSV.foreach(url, headers: true) do |row|
+				#TODO need to configurable this USUBJID
+				matched_objects <<  VarObject.new(row, row.headers) if self.USUBJID.present? && row["USUBJID"].present? && row["USUBJID"] == self.USUBJID
+			end
+		end
+		return current_file_name, matched_objects
+	end
 end

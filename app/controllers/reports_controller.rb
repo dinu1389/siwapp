@@ -101,22 +101,27 @@ class ReportsController < ApplicationController
     template = @report.template
     target_path = "#{Rails.root}/tmp/#{@report.id}"
     FileUtils.rm_rf(target_path) if File.exist?(target_path)
-    if @report.data_files.attached?
-      @report.data_files.each do |file|
+    @files = @report.data_files
+    if @files.attached?
+      @files.each do |file|
         name = File.basename(file.filename.to_s, File.extname(file.filename.to_s)).downcase
         url = ActiveStorage::Blob.service.send(:path_for, file.key)
         if name == 'dm'
           @csv_data = CSV.open(url, headers: true).read
           @csv_data.each do |row|
             start_obj = VarObject.new(row, row.headers)
+            locals_hash = {}
+            @files.each do |next_file|
+              object_name, data = start_obj.set_data(next_file, name)
+              locals_hash["#{object_name}s"] = data if data.present?
+            end
             #instance_variable_set("@#{name}", tmp)
 
-            locals_hash = {}
             locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}
             html = render_to_string :inline =>  template.html_string, :locals => locals_hash
-
+            #TODO need make this USUBJID configurable
             final_file = "#{@report.id}-#{start_obj.USUBJID}.docx"
           
           
@@ -128,6 +133,7 @@ class ReportsController < ApplicationController
             if File.exists?(target_path)
               FileUtils.mv(docx_file, target_path)
             end
+            # {{{ MH.loop }}} should be replaced from template model
             # MHs.each do |obj|
             #   obj[MH.SUBID]
             # end
