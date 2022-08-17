@@ -86,3 +86,7 @@ https://stackoverflow.com/questions/9599568/how-to-find-a-specific-row-in-csv
 # loop check if exist first
 
 https://stackoverflow.com/questions/31005290/rails-erb-check-if-exist-and-do-each
+
+# erb
+
+https://puppet.com/docs/puppet/5.5/lang_template_erb.html

@@ -16,7 +16,7 @@ class Template < ActiveRecord::Base
 
   def check_for_loop
     @force_stop_index = self.template.index("{{")
-    if (self.template.include? ".loop") || (self.template.include? ".end")
+    if (self.template.include? ".loop") || (self.template.include? ".end") || @force_stop_index.present?
       s = self.template.index("{{")
       e = self.template.index("}}")
       str = self.template[s+2..e-1]
@@ -44,10 +44,14 @@ class Template < ActiveRecord::Base
   end
 
   def check_for_variables first, last
-    template[first..first+1] = '<%='
-    template[last+1..last+2] = '%>'
-    # replacements = { '{{' => '<%=', '}}' => '%>' }
-    # html_to_erb(replacements)
+    #TODO add a check box in the frontend to use defined? so that bypass can be controlled
+    # template[first..first+1] = '<%='
+    # template[last+11..last+12] = '%>'
+    var_str = template[first+2..last-1]
+    template[first..last+1] = "<%= #{var_str} if defined?(#{var_str}) %>"
+    # template[first..first+1] = "<%=defined? (#{template[first+3..last]}) && #{template[first+3..last]}"
+    # #template[first+3..last] = "defined? (#{template[first+3..last]}) && #{template[first+3..last]}"
+    # template[last+1..last+2] = '%>'
   end
 
   def html_to_erb replacements
