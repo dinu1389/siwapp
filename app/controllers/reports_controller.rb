@@ -97,6 +97,7 @@ class ReportsController < ApplicationController
   end
 
   def generatedocx
+    #TODO add begin and resuce blocks
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template
     target_path = "#{Rails.root}/tmp/#{@report.id}"
@@ -114,10 +115,9 @@ class ReportsController < ApplicationController
             locals_hash = {}
             @files.each do |next_file|
               object_name, data = start_obj.set_data(next_file, name)
-              locals_hash["#{object_name}s"] = data if data.present?
+              locals_hash["#{object_name}s"] = data || []
             end
             #instance_variable_set("@#{name}", tmp)
-
             locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}

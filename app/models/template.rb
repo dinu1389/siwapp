@@ -22,7 +22,7 @@ class Template < ActiveRecord::Base
       str = self.template[s+2..e-1]
       if str.include? ".loop"
         str = str.split(".loop").first.downcase
-        replacements = { "{{#{str}.loop}}" => "<% #{str}s.each do |#{str}| %>"}
+        replacements = { "{{#{str}.loop}}" => "<% #{str}s&.each do |#{str}| %>"}
         html_to_erb(replacements)
       elsif str.include? ".end"
         str = str.split(".end").first
