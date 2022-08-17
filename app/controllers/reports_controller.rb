@@ -110,6 +110,7 @@ class ReportsController < ApplicationController
           @csv_data = CSV.open(url, headers: true).read
           @csv_data.each do |row|
             start_obj = VarObject.new(row, row.headers)
+            start_obj.set_methods
             locals_hash = {}
             @files.each do |next_file|
               object_name, data = start_obj.set_data(next_file, name)

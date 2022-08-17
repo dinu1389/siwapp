@@ -11,11 +11,13 @@ class VarObject
 		# 		end
 		# 	end
 		# end
-		headers.each do |method_name|
-			self.class.send(:define_method, "#{method_name}") do
-				row["#{method_name}"]
-			end			
-		end
+		# headers.each do |method_name|
+		# 	self.class.send(:define_method, "#{method_name}") do
+		# 		row["#{method_name}"]
+		# 	end			
+		# end
+		@row = row
+		@headers = headers
 	end
 
 
@@ -26,9 +28,21 @@ class VarObject
 		if current_file_name!= name
 			CSV.foreach(url, headers: true) do |row|
 				#TODO need to configurable this USUBJID
-				matched_objects <<  VarObject.new(row, row.headers) if self.USUBJID.present? && row["USUBJID"].present? && row["USUBJID"] == self.USUBJID
+				if self.USUBJID.present? && row["USUBJID"].present? && row["USUBJID"] == self.USUBJID
+					temp = VarObject.new(row, row.headers)
+					temp.set_methods
+					matched_objects << temp
+				end
 			end
 		end
 		return current_file_name, matched_objects
+	end
+
+	def set_methods
+		@headers.each do |method_name|
+			self.class.send(:define_method, "#{method_name}") do
+				@row["#{method_name}"]
+			end			
+		end		
 	end
 end
