@@ -56,7 +56,7 @@ class Template < ActiveRecord::Base
 
 
   def check_for_loop
-    replacements = { '%=' => '<%=', '#%' => '%>', '%#' => '<%' }
+    replacements = { '%=' => '<%=', '=%' => '%>', '%#' => '<%', '&amp;' => '&' }
     return  html_to_erb(replacements)
   end
 
