@@ -97,7 +97,8 @@ class ReportsController < ApplicationController
   end
 
   def generatedocx
-    #TODO add begin and resuce blocks
+    begin
+          #TODO add begin and resuce blocks
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template
     target_path = "#{Rails.root}/tmp/#{@report.id}"
@@ -121,6 +122,7 @@ class ReportsController < ApplicationController
             locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}
+
             html = render_to_string :inline =>  template.erb_html, :locals => locals_hash
             #TODO need make this USUBJID configurable
             final_file = "#{@report.id}-#{start_obj.USUBJID}.docx"
@@ -143,7 +145,12 @@ class ReportsController < ApplicationController
       end
     end
     zip_files(target_path)
+    flash[:info] = "Successfully generated zip file."
     redirect_to edit_report_path(@report)
+    rescue Exception => e
+      flash[:alert] = e.message
+      redirect_to edit_report_path(@report)
+    end
   end
 
   private
