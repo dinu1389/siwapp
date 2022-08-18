@@ -40,6 +40,8 @@
           </br>
           <% @url = ActiveStorage::Blob.service.send(:path_for, file.key) %>
           <%  @csv_data = CSV.open(@url, headers: true).read %>
+          <b>Total rows: <%= @csv_data.count  %></b>
+          </br>
           <textarea readonly cols="40" id="person_description" name="person[description]" rows="20"><%= @csv_data.headers %></textarea>
           </br>
         <% end %>
