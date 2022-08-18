@@ -30,6 +30,14 @@ class ReportsController < ApplicationController
     @reports = Report.all.order(updated_at: :desc)
   end
 
+  def update
+    @report = Report.find_by(id: params[:id])
+    @report.data_files.purge
+    @report.output_file.purge
+    @report.update(report_params)
+    redirect_to edit_report_path(@report)
+  end
+
   def generatedocx_backup
     @report = Report.find_by(id: params[:@report][:report_id])
     template = @report.template

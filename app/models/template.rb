@@ -58,7 +58,7 @@ class Template < ActiveRecord::Base
 
   def convert_to_erb
     #replacements = { '%=' => '<%=', '=%' => '%>', '%#' => '<%', '&amp;' => '&' }
-    replacements = { '&lt;' => '<', '&gt' => '>', '&amp;' => '&' }
+    replacements = { '&lt;' => '<', '&gt;' => '>', '&amp;' => '&' }
     self.erb_html = html_to_erb(replacements)
   end
 
