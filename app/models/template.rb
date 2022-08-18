@@ -3,13 +3,14 @@ class Template < ActiveRecord::Base
 
   validates :name, presence: true
   validates :template, presence: true
+  before_save :convert_to_erb
 
   def to_s
     name
   end
 
   def html_string
-    check_for_loop
+    convert_to_erb
     #check_for_variables
     return template
   end
@@ -55,13 +56,14 @@ class Template < ActiveRecord::Base
   end
 
 
-  def check_for_loop
-    replacements = { '%=' => '<%=', '=%' => '%>', '%#' => '<%', '&amp;' => '&' }
-    return  html_to_erb(replacements)
+  def convert_to_erb
+    #replacements = { '%=' => '<%=', '=%' => '%>', '%#' => '<%', '&amp;' => '&' }
+    replacements = { '&lt;' => '<', '&gt' => '>', '&amp;' => '&' }
+    self.erb_html = html_to_erb(replacements)
   end
 
   def html_to_erb replacements
-    template.gsub!(Regexp.union(replacements.keys), replacements) if template.present?
+    template.gsub(Regexp.union(replacements.keys), replacements) if template.present?
   end
 
 

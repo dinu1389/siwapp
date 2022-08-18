@@ -121,7 +121,7 @@ class ReportsController < ApplicationController
             locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}
-            html = render_to_string :inline =>  template.html_string, :locals => locals_hash
+            html = render_to_string :inline =>  template.erb_html, :locals => locals_hash
             #TODO need make this USUBJID configurable
             final_file = "#{@report.id}-#{start_obj.USUBJID}.docx"
           
