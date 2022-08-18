@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_24_064035) do
+ActiveRecord::Schema.define(version: 2022_08_18_040323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2022_07_24_064035) do
     t.datetime "deleted_at"
     t.boolean "email_default", default: false
     t.string "subject", limit: 200
+    t.text "erb_html"
     t.index ["deleted_at"], name: "index_templates_on_deleted_at"
   end
 
