@@ -57,7 +57,7 @@ class TemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @template.update(template_params)
-        format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
+        format.html { render :edit, notice: 'Template was successfully updated.' }
       else
         format.html { render :edit }
       end
