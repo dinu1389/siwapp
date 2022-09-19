@@ -118,6 +118,7 @@ class ReportsController < ApplicationController
         url = ActiveStorage::Blob.service.send(:path_for, file.key)
         if name == 'dm'
           @csv_data = CSV.open(url, headers: true).read
+          #@csv_data = CSV.open(url, headers: true).take(10)
           @csv_data.each do |row|
             start_obj = VarObject.new(row, row.headers)
             start_obj.set_methods
@@ -130,7 +131,6 @@ class ReportsController < ApplicationController
             locals_hash["#{name}"] = start_obj
             locals_hash =  HashWithIndifferentAccess.new(locals_hash)
             # {:dm => tmp}
-
             html = render_to_string :inline =>  template.erb_html, :locals => locals_hash
             #TODO need make this USUBJID configurable
             final_file = "#{@report.id}-#{start_obj.USUBJID}.docx"

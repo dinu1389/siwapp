@@ -90,3 +90,22 @@ https://stackoverflow.com/questions/31005290/rails-erb-check-if-exist-and-do-eac
 # erb
 
 https://puppet.com/docs/puppet/5.5/lang_template_erb.html
+
+https://github.com/MuhammetDilmac/Html2Docx
+
+https://github.com/metanorma/html2doc
+
+https://github.com/jetruby/puredocx
+
+https://github.com/openxml/openxml-docx
+
+https://github.com/karnov/htmltoword/issues/31
+
+
+https://github.com/ruby-docx/docx/issues/16
+
+https://rubygems.org/gems/docx_replace
+
+https://github.com/urvin-compliance/caracal
+
+https://www.appsloveworld.com/ruby/100/110/ruby-plain-text-to-docx-with-specific-formatting

@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Html2Docx (0.2.0)
     actioncable (5.2.3)
       actionpack (= 5.2.3)
       nio4r (~> 2.0)
@@ -334,6 +335,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  Html2Docx
   active_model_serializers
   activestorage-validator
   acts-as-taggable-on

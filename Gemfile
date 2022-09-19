@@ -92,3 +92,5 @@ gem 'htmltoword'
 
 gem 'activestorage-validator'
 gem 'rubyzip'
+
+gem 'Html2Docx'

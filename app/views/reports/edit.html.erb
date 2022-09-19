@@ -39,7 +39,7 @@
           <%= link_to file.filename, rails_blob_path(file, disposition: "attachment") %>
           </br>
           <% @url = ActiveStorage::Blob.service.send(:path_for, file.key) %>
-          <%  @csv_data = CSV.open(@url, headers: true).read %>
+          <%  @csv_data = CSV.parse(File.read(@url, encoding: 'bom|utf-8'), headers: true) %>
           <b>Total rows: <%= @csv_data.count  %></b>
           </br>
           <textarea readonly cols="40" id="person_description" name="person[description]" rows="20"><%= @csv_data.headers %></textarea>
