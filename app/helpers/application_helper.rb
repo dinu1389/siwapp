@@ -47,4 +47,8 @@ module ApplicationHelper
     url_for(options)
   end
 
+  def extract_days(str)
+    str.gsub(/[^0-9]/, '').to_i rescue nil
+  end
+
 end
