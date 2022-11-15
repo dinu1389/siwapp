@@ -4,7 +4,7 @@ class Report < ActiveRecord::Base
     has_one_attached :output_file
     #validate :correct_document_mime_type
     belongs_to :template
-    validates :data_files, presence: true, blob: { content_type: ['text/csv', 'application/json'], size_range: 1..(5.megabytes) }
+    validates :data_files, presence: true, blob: { content_type: ['text/csv', 'application/json'], size_range: 1..(50.megabytes) }
 
 
     private
